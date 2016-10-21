@@ -1,0 +1,10 @@
+* {
+  padding: 0;
+  margin: 0; }
+
+.progressBar {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  height: 10px;
+  background-color: red; }
