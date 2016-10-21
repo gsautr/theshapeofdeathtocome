@@ -281,7 +281,7 @@ function init() {
   controls.movementSpeed = 4;
   controls.lookSpeed = 0.05;
   //controls.activeLook = false;
-  //controls.autoForward =  1;
+  controls.autoForward =  1;
   controls.lookVertical = true;
   controls.constrainVertical = true;
   controls.verticalMin = 0.8;
