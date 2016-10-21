@@ -23,6 +23,8 @@ var floorColour = 0xaaaaaa;
 var ambientColour = 0xaaaaaa;
 
 
+
+
 function guiChange() {
   scene.fog.density = gui.fogDensity;
   godCamera.left = gui.l;
@@ -58,12 +60,13 @@ function init() {
 
   graves = [];
 
-  var progressBar = document.createElement('div');
-  progressBar.classList.add('progressBar');
-  document.body.appendChild(progressBar);
+  // var progressBar = document.createElement('div');
+  // progressBar.classList.add('progressBar');
+  // document.body.appendChild(progressBar);
   manager = new THREE.LoadingManager();
   manager.onProgress = function ( item, loaded, total ) {
-    progressBar.style.width = (loaded / total * 100) + 'px';
+    console.log(loaded);
+    //progressBar.style.width = (loaded / total * 100) + 'px';
   };
 
   /////// CLOCK
@@ -73,7 +76,7 @@ function init() {
   /////// GUI
 
   gui  = {
-    fogDensity: 0.03,
+    fogDensity: 0.02,
     l: (areaSize*4) / - 2,
     r: (areaSize*4) / 2,
     t: (areaSize*4) / 2,
@@ -115,6 +118,8 @@ function init() {
   datGui.add( spotlightGui, "x", -lightDist, lightDist ).onChange( spotlightChange );
   datGui.add( spotlightGui, "z", -lightDist, lightDist ).onChange( spotlightChange );
   datGui.add( spotlightGui, "y", -lightDist, lightDist ).onChange( spotlightChange );
+
+  dat.GUI.toggleHide();
 
   /////// SCENE
 
@@ -168,7 +173,7 @@ function init() {
 
 
 
-  sampler = new PoissonDiskSampler( areaSize, areaSize  , 20, 30 );
+  sampler = new PoissonDiskSampler(areaSize - 10, areaSize - 10, 20, 30 );
   solution = sampler.sampleUntilSolution();
 
   var i = 0;
@@ -186,14 +191,13 @@ function init() {
 
       var tombW = tombSize * 0.5;
       // tombW = 800
-      console.log(material.materials[4].map.image);
       var tombH = (material.materials[4].map.image) ? (tombW / 800) * material.materials[5].map.image.height : tombSize;
       var tombDepth = tombSize * 0.1;
       var geometry = new THREE.BoxGeometry( tombW, tombH, tombDepth);
 
       var object = new THREE.Mesh( geometry, material );
-
-      object.position.y = 0;
+      object.tombHeight = tombH;
+      object.position.y = -tombH/2;
       object.position.x = solution[i].x - (areaSize/2);
       object.position.z = solution[i].y - (areaSize/2);
 
@@ -206,7 +210,20 @@ function init() {
       i++;
       if (i < solution.length) setTimeout(createTombStone, 10);
 
-    }, 100);
+
+      var tweenPosition = new TWEEN.Tween(object.position)
+        .to({
+          y: tombH/2,
+        }, 6000)
+        .onUpdate(function() {
+          //camera.lookAt(destination);
+        })
+        .onComplete(function() {
+        })
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .start();
+
+    }, 200);
 
   }
   createTombStone();
@@ -242,7 +259,7 @@ function init() {
     new THREE.MeshPhongMaterial( { color: floorColour } ));
   floor.material.side = THREE.DoubleSide;
   floor.rotation.x = de2ra(90);
-  floor.position.y = -5;
+  floor.position.y = 0;
   if (shadow) floor.receiveShadow = true;
   scene.add( floor );
 
@@ -258,8 +275,7 @@ function init() {
   source.position.y = 20;
   source.position.z = 20;
 
-  camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 20000);
-  camera.rotation.x = de2ra(90);
+  camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 20000);
   scene.add(camera);
   camera.add(source);
   source.add(light);
@@ -278,14 +294,20 @@ function init() {
 
 
   controls = new THREE.FirstPersonControls( camera );
-  controls.movementSpeed = 4;
-  controls.lookSpeed = 0.05;
-  //controls.activeLook = false;
-  controls.autoForward =  1;
-  controls.lookVertical = true;
-  controls.constrainVertical = true;
-  controls.verticalMin = 0.8;
-  controls.verticalMax = 2.2;
+  controls.movementSpeed = 0.1;
+  controls.lookSpeed = 0.1;
+  controls.activeLook = false;
+  controls.autoForward =  true;
+  controls.lookVertical = false;
+  controls.lookHorizontal = false;
+  // controls.constrainVertical = true;
+  // controls.verticalMin = 0.8;
+  // controls.verticalMax = 2.2;
+
+
+
+
+
 
   /////// MOUSE
 
@@ -324,27 +346,37 @@ var closeup = false;
 function onDocumentMouseDown( event ) {
   if ((!closeup)&&(INTERSECTED !== null)) {
 
-    controls.enabled = false;
+    window.inter = INTERSECTED;
+
+    if (!INTERSECTED.beingViewed) {
+
+      controls.autoForward = false;
+      INTERSECTED.beingViewed = true;
+
+      var position = INTERSECTED.position;
+      var line = new THREE.Line3(INTERSECTED.position, camera.position);
+      window.line = line;
+      var destination = line.at(THREE.Math.mapLinear(6, 0, line.distance(), 0, 1));
 
 
-    var destination = INTERSECTED.position;
+      var tweenPosition = new TWEEN.Tween(camera.position)
+        .to({
+          x: destination.x,
+          z: destination.z,
+        }, THREE.Math.mapLinear(line.distance(), 0, 40, 0, 2000))
+        .onUpdate(function() {
+          //camera.lookAt(destination);
+        })
+        .onComplete(function() {
+        })
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .start();
 
+    } else {
 
-
-    var tweenPosition = new TWEEN.Tween(camera.position)
-      .to({
-        x: destination.x,
-        y: destination.y,
-        z: destination.z + 5,
-      }, 1000)
-      .onUpdate(function() {
-        //camera.lookAt(destination);
-      })
-      .onComplete(function() {
-        controls.enabled = true;
-      })
-      .easing(TWEEN.Easing.Quadratic.In)
-      .start();
+      controls.autoForward = true;
+      INTERSECTED.beingViewed = false;
+    }
 
   }
 }
@@ -354,12 +386,13 @@ String.prototype.splice = function(idx, rem, str) {
 function randomTexture() {
 
       shuffledIndex = (shuffledIndex < shuffled.length - 1) ? shuffledIndex + 1 : 0;
+      //console.log(shuffledIndex);
       var randImg = img[shuffled[shuffledIndex]];
       try {
-      while (randImg.indexOf("%2F") !== -1) {
-          var index = randImg.indexOf("%2F");
-          randImg = randImg.substr(0, index + 1) + "25" + randImg.substr(index + 1);
-        }
+        while (randImg.indexOf("%2F") !== -1) {
+            var index = randImg.indexOf("%2F");
+            randImg = randImg.substr(0, index + 1) + "25" + randImg.substr(index + 1);
+          }
         while (randImg.indexOf("%40") !== -1) {
           var index = randImg.indexOf("%40");
           randImg = randImg.substr(0, index + 1) + "25" + randImg.substr(index + 1);
@@ -370,10 +403,11 @@ function randomTexture() {
         console.log(img[shuffled[shuffledIndex]]);
         alert('URL Error ' + img[shuffled[shuffledIndex]] + ' Index/Index: ' + shuffledIndex + '/' + shuffled[shuffledIndex] );
       }
-      texture = new THREE.TextureLoader(manager).load( "graves/" + randImg, function() {
-      });
+
+      texture = new THREE.TextureLoader(manager).load( "graves/" + randImg, function() {});
 
       texture.minFilter = THREE.LinearFilter;
+      texture.needsUpdate = true;
 
 
       var materialArray = [
@@ -381,19 +415,19 @@ function randomTexture() {
         new THREE.MeshPhongMaterial( {color: blockColour} ),
         new THREE.MeshPhongMaterial( {color: blockColour} ),
         new THREE.MeshPhongMaterial( {color: blockColour} ),
-        new THREE.MeshBasicMaterial( { map: texture}),
-        new THREE.MeshBasicMaterial( { map: texture}),
+        new THREE.MeshBasicMaterial( { map: texture, needsUpdate: true}),
+        new THREE.MeshBasicMaterial( { map: texture, needsUpdate: true}),
       ];
 
-      console.log("Grave index: ", shuffledIndex);
-      console.log(randImg);
+      // console.log("Grave index: ", shuffledIndex);
+      // console.log(randImg);
 
       return new THREE.MeshFaceMaterial(materialArray);
 }
 
 function animate() {
 
-  camera.position.y = 0;
+  //camera.position.y = 0;
   for ( var i = 0; i < graves.length; i ++ ) {
     var graveZ = graves[i].position.z;
     var cameraZ = camera.position.z;
@@ -406,6 +440,7 @@ function animate() {
     if ((graveX - cameraX) < ((areaSize/2)*-1)) { graves[i].position.x += areaSize; updateTexture = true; }
     if ((updateTexture)) {
       graves[i].material.map = randomTexture();
+      graves[i].material.map.needsUpdate = true;
       graves[i].material.needsUpdate = true;
     }
 
@@ -461,6 +496,8 @@ function animate() {
       INTERSECTED.material.materials[1].color.setHex( 0xffffff );
       INTERSECTED.material.materials[2].color.setHex( 0xffffff );
       INTERSECTED.material.materials[3].color.setHex( 0xffffff );
+
+      renderer.domElement.style.cursor = "pointer";
       // INTERSECTED.material.materials[5].fog = false;
       // INTERSECTED.material.materials[6].fog = false;
 
@@ -478,6 +515,7 @@ function animate() {
           // INTERSECTED.material.materials[6].fog = true;
           // sprite.position.x = -9999;
           // sprite.position.z = -9999;
+          renderer.domElement.style.cursor = "auto";
       }
     // remove previous intersection object reference
     //     by setting current intersection object to "nothing"

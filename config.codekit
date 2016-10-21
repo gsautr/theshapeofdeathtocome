@@ -8910,17 +8910,6 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/graves\/~franzglaser%2Ftpsrc%2Ftpmem.html.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 414209,
-		"inputAbbreviatedPath": "\/graves\/~franzglaser%2Ftpsrc%2Ftpmem.html.jpg",
-		"outputAbbreviatedPath": "\/graves\/~franzglaser%2Ftpsrc%2Ftpmem.html.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
 	"\/graves\/~kremersark%2Fvasposter.html.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -8998,6 +8987,15 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/index.html": {
+		"fileType": 8192,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/index.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/index.jade": {
 		"compileDebug": 1,
 		"fileType": 512,
@@ -9020,6 +9018,17 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/js\/min\/three.firstpersoncontrols-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/min\/three.firstpersoncontrols-min.js",
+		"outputAbbreviatedPath": "\/js\/min\/min\/three.firstpersoncontrols-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/js\/three.firstpersoncontrols.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -9029,7 +9038,7 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
+		"syntaxCheckerStyle": 0
 		},
 	"\/js\/three.flycontrols.js": {
 		"fileType": 64,
