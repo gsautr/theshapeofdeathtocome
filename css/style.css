@@ -11,3 +11,16 @@ body {
   left: 10px;
   height: 10px;
   background-color: red; }
+
+.wrapper {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  mix-blend-mode: multiply;
+  text-align: center; }
+  .wrapper .geocities {
+    margin: 0 auto; }

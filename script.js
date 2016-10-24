@@ -2,11 +2,10 @@
 
 var shuffled = [];
 var shuffledIndex = 780;
-var img = graves;
 
 
-while (shuffled.length < img.length) {
-  var randIndex = parseInt((Math.random() * img.length) + 1, 10);
+while (shuffled.length < websites.length) {
+  var randIndex = parseInt((Math.random() * websites.length), 10);
   if (shuffled.indexOf(randIndex) === -1) {
     shuffled.push(randIndex);
   }
@@ -21,7 +20,7 @@ var shadow = 1;
 var blockColour = 0x999999;
 var floorColour = 0xaaaaaa;
 var ambientColour = 0xaaaaaa;
-
+var dummy, dummyCtx
 
 
 
@@ -58,6 +57,11 @@ function init() {
 
   areaSize = 200;
 
+  dummy = document.createElement('canvas');
+  dummy.width  = 1;
+  dummy.height = 1;
+  dummyCtx = dummy.getContext("2d");
+
   graves = [];
 
   // var progressBar = document.createElement('div');
@@ -65,7 +69,7 @@ function init() {
   // document.body.appendChild(progressBar);
   manager = new THREE.LoadingManager();
   manager.onProgress = function ( item, loaded, total ) {
-    console.log(loaded);
+    //console.log(loaded);
     //progressBar.style.width = (loaded / total * 100) + 'px';
   };
 
@@ -176,81 +180,30 @@ function init() {
   sampler = new PoissonDiskSampler(areaSize - 10, areaSize - 10, 20, 30 );
   solution = sampler.sampleUntilSolution();
 
-  var i = 0;
 
-  var tombSize = 10;
   // for ( var i = 0; i < solution.length; i ++ ) {
 
-      ////// STONE
-
-  function createTombStone() {
-
-    var material = randomTexture();
-
-    setTimeout(function() { 
-
-      var tombW = tombSize * 0.5;
-      // tombW = 800
-      var tombH = (material.materials[4].map.image) ? (tombW / 800) * material.materials[5].map.image.height : tombSize;
-      var tombDepth = tombSize * 0.1;
-      var geometry = new THREE.BoxGeometry( tombW, tombH, tombDepth);
-
-      var object = new THREE.Mesh( geometry, material );
-      object.tombHeight = tombH;
-      object.position.y = -tombH/2;
-      object.position.x = solution[i].x - (areaSize/2);
-      object.position.z = solution[i].y - (areaSize/2);
-
-      if (shadow) object.receiveShadow = true;
-      if (shadow) object.castShadow = true;
-
-      graves.push(object);
-      scene.add( object );
-
-      i++;
-      if (i < solution.length) setTimeout(createTombStone, 10);
+  ////// STONE
 
 
-      var tweenPosition = new TWEEN.Tween(object.position)
-        .to({
-          y: tombH/2,
-        }, 6000)
-        .onUpdate(function() {
-          //camera.lookAt(destination);
-        })
-        .onComplete(function() {
-        })
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .start();
+  var count = 0;
 
-    }, 200);
+  function allTombstones() {
+    var promise = createTombStone(solution[count].x - (areaSize/2), solution[count].y - (areaSize/2));
+    promise.then(function(grave) {
+      graves.push(grave);
 
+      riseTombstone(grave);
+
+      count += 1;
+      if (count < solution.length) allTombstones();
+    });
   }
-  createTombStone();
 
-  // }
-
+  allTombstones();
 
 
-  
-  // SUPER SIMPLE GLOW EFFECT
-  // use sprite because it appears the same from all angles
-  var spriteSize = tombSize * 1.8;
-  var spriteGeometry = new THREE.PlaneGeometry( spriteSize, spriteSize, spriteSize );
-  var spriteMaterial = new THREE.MeshBasicMaterial( 
-  { 
-    map: new THREE.ImageUtils.loadTexture( './glow.png' ),
-    side: THREE.DoubleSide,
-    color: 0x0000ff, 
-    transparent: true, 
-    fog: true,
-    opacity: 0,
-    blending: THREE.NormalBlending
-  });
-  sprite = new THREE.Mesh( spriteGeometry, spriteMaterial );
-  sprite.position.y = (spriteSize / 6);
-  //sprite.scale.set(10, 10, 1);
-  scene.add(sprite); // this centers the glow at the mesh
+
 
   ////////// FLOOR
 
@@ -346,7 +299,7 @@ var closeup = false;
 function onDocumentMouseDown( event ) {
   if ((!closeup)&&(INTERSECTED !== null)) {
 
-    window.inter = INTERSECTED;
+    window.clicked = INTERSECTED;
 
     if (!INTERSECTED.beingViewed) {
 
@@ -357,12 +310,13 @@ function onDocumentMouseDown( event ) {
       var line = new THREE.Line3(INTERSECTED.position, camera.position);
       window.line = line;
       var destination = line.at(THREE.Math.mapLinear(6, 0, line.distance(), 0, 1));
+      destination = INTERSECTED.position;
 
 
       var tweenPosition = new TWEEN.Tween(camera.position)
         .to({
           x: destination.x,
-          z: destination.z,
+          z: destination.z - 4,
         }, THREE.Math.mapLinear(line.distance(), 0, 40, 0, 2000))
         .onUpdate(function() {
           //camera.lookAt(destination);
@@ -383,52 +337,10 @@ function onDocumentMouseDown( event ) {
 String.prototype.splice = function(idx, rem, str) {
     return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
 };
-function randomTexture() {
-
-      shuffledIndex = (shuffledIndex < shuffled.length - 1) ? shuffledIndex + 1 : 0;
-      //console.log(shuffledIndex);
-      var randImg = img[shuffled[shuffledIndex]];
-      try {
-        while (randImg.indexOf("%2F") !== -1) {
-            var index = randImg.indexOf("%2F");
-            randImg = randImg.substr(0, index + 1) + "25" + randImg.substr(index + 1);
-          }
-        while (randImg.indexOf("%40") !== -1) {
-          var index = randImg.indexOf("%40");
-          randImg = randImg.substr(0, index + 1) + "25" + randImg.substr(index + 1);
-        }
-      } catch(err) {
-        console.log("Error processing url");
-        console.log(randImg);
-        console.log(img[shuffled[shuffledIndex]]);
-        alert('URL Error ' + img[shuffled[shuffledIndex]] + ' Index/Index: ' + shuffledIndex + '/' + shuffled[shuffledIndex] );
-      }
-
-      texture = new THREE.TextureLoader(manager).load( "graves/" + randImg, function() {});
-
-      texture.minFilter = THREE.LinearFilter;
-      texture.needsUpdate = true;
-
-
-      var materialArray = [
-        new THREE.MeshPhongMaterial( {color: blockColour} ),
-        new THREE.MeshPhongMaterial( {color: blockColour} ),
-        new THREE.MeshPhongMaterial( {color: blockColour} ),
-        new THREE.MeshPhongMaterial( {color: blockColour} ),
-        new THREE.MeshBasicMaterial( { map: texture, needsUpdate: true}),
-        new THREE.MeshBasicMaterial( { map: texture, needsUpdate: true}),
-      ];
-
-      // console.log("Grave index: ", shuffledIndex);
-      // console.log(randImg);
-
-      return new THREE.MeshFaceMaterial(materialArray);
-}
-
 function animate() {
 
   //camera.position.y = 0;
-  for ( var i = 0; i < graves.length; i ++ ) {
+  for ( var i = 0; i < graves.length - 1; i ++ ) {
     var graveZ = graves[i].position.z;
     var cameraZ = camera.position.z;
     var graveX = graves[i].position.x;
@@ -438,12 +350,7 @@ function animate() {
     if ((graveZ - cameraZ) < ((areaSize/2)*-1)) { graves[i].position.z += areaSize; updateTexture = true; }
     if ((graveX - cameraX) > (areaSize/2)) { graves[i].position.x -= areaSize; updateTexture = true; }
     if ((graveX - cameraX) < ((areaSize/2)*-1)) { graves[i].position.x += areaSize; updateTexture = true; }
-    if ((updateTexture)) {
-      graves[i].material.map = randomTexture();
-      graves[i].material.map.needsUpdate = true;
-      graves[i].material.needsUpdate = true;
-    }
-
+    if (updateTexture) updateRandomTexture(graves[i]);
   }
 
 
@@ -475,50 +382,13 @@ function animate() {
   if ( intersects.length > 0 ) {
       // if the closest object intersected is not the currently stored intersection object
     if ( intersects[ 0 ].object != INTERSECTED )  {
-
-      if ( INTERSECTED )  {
-          INTERSECTED.material.materials[0].color.setHex( INTERSECTED.currentHex );
-          INTERSECTED.material.materials[1].color.setHex( INTERSECTED.currentHex );
-          INTERSECTED.material.materials[2].color.setHex( INTERSECTED.currentHex );
-          INTERSECTED.material.materials[3].color.setHex( INTERSECTED.currentHex );
-          // INTERSECTED.material.materials[5].fog = true;
-          // INTERSECTED.material.materials[6].fog = true;
-
-          // sprite.position.x = -9999;
-          // sprite.position.z = -9999;
-      }
-        
-      INTERSECTED = intersects[ 0 ].object; // store reference to closest object as current intersection object
-      
-      INTERSECTED.currentHex = INTERSECTED.material.materials[0].color.getHex(); // store color of closest object (for later restoration)
-      // set a new color for closest object
-      INTERSECTED.material.materials[0].color.setHex( 0xffffff );
-      INTERSECTED.material.materials[1].color.setHex( 0xffffff );
-      INTERSECTED.material.materials[2].color.setHex( 0xffffff );
-      INTERSECTED.material.materials[3].color.setHex( 0xffffff );
-
+      INTERSECTED = intersects[ 0 ].object;
       renderer.domElement.style.cursor = "pointer";
-      // INTERSECTED.material.materials[5].fog = false;
-      // INTERSECTED.material.materials[6].fog = false;
-
-      // sprite.position.x = INTERSECTED.position.x;
-      // sprite.position.z = INTERSECTED.position.z;
     }
   } else  {
-    // restore previous intersection object (if it exists) to its original color
-      if ( INTERSECTED )  {
-          INTERSECTED.material.materials[0].color.setHex( INTERSECTED.currentHex );
-          INTERSECTED.material.materials[1].color.setHex( INTERSECTED.currentHex );
-          INTERSECTED.material.materials[2].color.setHex( INTERSECTED.currentHex );
-          INTERSECTED.material.materials[3].color.setHex( INTERSECTED.currentHex );
-          // INTERSECTED.material.materials[5].fog = true;
-          // INTERSECTED.material.materials[6].fog = true;
-          // sprite.position.x = -9999;
-          // sprite.position.z = -9999;
-          renderer.domElement.style.cursor = "auto";
-      }
-    // remove previous intersection object reference
-    //     by setting current intersection object to "nothing"
+    if ( INTERSECTED )  {
+        renderer.domElement.style.cursor = "auto";
+    }
     INTERSECTED = null;
   }
 

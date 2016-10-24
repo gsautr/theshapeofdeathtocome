@@ -250,17 +250,22 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 			this.lat -= this.mouseY * (actualLookSpeed) * verticalLookRatio;
 		} else {
 
-			var ratio = 0.96;
-			var speed = 0.2;
-			if (this.wheelDelta === 0) this.verticalDelta = 0;
-			if ( this.moveForward ) this.verticalDelta =  (speed * (1 - ratio));
-			if ( this.moveBackward ) this.verticalDelta =  (-speed * (1 - ratio));
+				console.log(this.object.position.y);
+					var ratio = 0.96;
+					var speed = 0.2;
+					if (this.wheelDelta === 0) this.verticalDelta = 0;
+					if ((this.moveForward)&&(this.object.position.y < 100)) {
+						this.verticalDelta =  (speed * (1 - ratio));
+					}
+					if (this.moveBackward) {
+						this.verticalDelta =  (-speed * (1 - ratio)); 
+					}
 
-			this.smoothHeightAdjust = (this.smoothHeightAdjust * ratio) + this.verticalDelta;
+					if (this.object.position.y < 0.8) this.smoothHeightAdjust = 0.81;
+					this.smoothHeightAdjust = (this.smoothHeightAdjust * ratio) + this.verticalDelta;
+					this.lat += (this.smoothHeightAdjust * -1) * verticalLookRatio;
+					this.object.translateY(this.smoothHeightAdjust);
 
-			//console.log(this.smoothHeightAdjust, this.moveUp);
-			this.lat += (this.smoothHeightAdjust * -1) * verticalLookRatio;
-			this.object.translateY(this.smoothHeightAdjust);
 
 		}
 
@@ -302,11 +307,8 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 		this.smoothMovementSpeed = (this.smoothMovementSpeed * ratio) + (this.movementSpeed * (1 - ratio));
 		if (this.autoForward) {
 
-
-
 			position.z += this.smoothMovementSpeed;
 		}
-
 		targetPosition.x = position.x + 100 * Math.sin( this.phi ) * Math.cos( this.theta );
 		targetPosition.y = position.y + 100 * Math.cos( this.phi );
 		targetPosition.z = position.z + 100 * Math.sin( this.phi ) * Math.sin( this.theta );
