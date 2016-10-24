@@ -55,27 +55,31 @@ function createTombStone(x, z) {
 
 };
 
-function randomTexture() {
+function randomTexture(index) {
 
+  var log = false;
+
+  var _this = this;
   shuffledIndex = (shuffledIndex < shuffled.length - 1) ? shuffledIndex + 1 : 0;
-  var randImg = websites[shuffled[shuffledIndex]];
 
+  this.img = websites[shuffled[shuffledIndex]];
+  if (log) console.log('1st', _this.img);
   var promise = new Promise(function(resolve, reject) {
 
-
-      while (randImg.indexOf("%2F") !== -1) {
-          var index = randImg.indexOf("%2F");
-          randImg = randImg.substr(0, index + 1) + "25" + randImg.substr(index + 1);
-        }
-      while (randImg.indexOf("%40") !== -1) {
-        var index = randImg.indexOf("%40");
-        randImg = randImg.substr(0, index + 1) + "25" + randImg.substr(index + 1);
+      while (_this.img.indexOf("%2F") !== -1) {
+        var index = _this.img.indexOf("%2F");
+        _this.img = _this.img.substr(0, index + 1) + "25" + _this.img.substr(index + 1);
       }
+      while (_this.img.indexOf("%40") !== -1) {
+        var index = _this.img.indexOf("%40");
+        _this.img = _this.img.substr(0, index + 1) + "25" + _this.img.substr(index + 1);
+      }
+      if (log) console.log('2nd', _this.img);
 
-      texture = new THREE.TextureLoader(manager).load( "graves/" + randImg, function() {
-      texture.minFilter = THREE.LinearFilter;
-      texture.originalUrl = randImg;
-
+      texture = new THREE.TextureLoader(manager).load( "graves/" + _this.img, function() {
+        texture.minFilter = THREE.LinearFilter;
+        texture.originalUrl = _this.img;
+        if (log) console.log('3rd', _this.img);
         try {
           dummyCtx.drawImage(texture.image,0,0, 1, 1);
           var c = dummyCtx.getImageData(0, 0, 1, 1).data;
@@ -110,6 +114,8 @@ function updateRandomTexture(grave) {
       var promise = new randomTexture();
 
       promise.then(function(material) {
+        //console.log(material.materials[5].originalUrl);
+        //window.material = material;
         grave.material = material;
         grave.needsUpdate = true;
       }, function(reject) {

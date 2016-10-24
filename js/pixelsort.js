@@ -247,7 +247,7 @@ window.setImmediate = (function () {
   function init() {
     // Create the canvas
     $canvas = $('<canvas />');
-    $canvas.click(clicked);
+    //$canvas.click(clicked);
     $container = $(container);
     $container.append($canvas);
     ctx = $canvas[0].getContext('2d');
