@@ -14,6 +14,7 @@ function riseTombstone(grave) {
       .start();
 }
 
+
 function createTombStone(x, z) {
 
 
@@ -58,7 +59,7 @@ function randomTexture() {
 
   shuffledIndex = (shuffledIndex < shuffled.length - 1) ? shuffledIndex + 1 : 0;
   var randImg = websites[shuffled[shuffledIndex]];
-  
+
   var promise = new Promise(function(resolve, reject) {
 
 
@@ -106,13 +107,13 @@ function updateRandomTexture(grave) {
 
       riseTombstone(grave);
       //console.log("updateRandomTexture", grave.material.materials[5].map.originalUrl);
-      var promise = randomTexture();
+      var promise = new randomTexture();
 
       promise.then(function(material) {
         grave.material = material;
         grave.needsUpdate = true;
       }, function(reject) {
 
-      });
+  });
 
 }

@@ -250,7 +250,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 			this.lat -= this.mouseY * (actualLookSpeed) * verticalLookRatio;
 		} else {
 
-				console.log(this.object.position.y);
+				// console.log(this.object.position.y);
 					var ratio = 0.96;
 					var speed = 0.2;
 					if (this.wheelDelta === 0) this.verticalDelta = 0;
