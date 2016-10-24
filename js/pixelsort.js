@@ -265,8 +265,5 @@ window.setImmediate = (function () {
   // Leggo!
   $(init);
 
-  window.setTimeout(function() {
-    $('.wrapper').fadeOut(4000);
-  }, 4000);
 
 }(jQuery, '.geocities'));

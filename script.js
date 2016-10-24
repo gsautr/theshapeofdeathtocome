@@ -12,7 +12,7 @@ while (shuffled.length < websites.length) {
 }
 
 
-var scene, camera, renderer, light, gui, clock, spotlightGui, lightHelper, torch, source, dest, floor, sampler, solution, godCamera, godControls, graves, areaSize, manager, sprite, w, h;
+var scene, camera, renderer, light, gui, clock, spotlightGui, lightHelper, torch, source, dest, floor, sampler, solution, godCamera, godControls, graves, models, areaSize, manager, sprite, w, h;
 var projector, mouse = { x: 0, y: 0 }, INTERSECTED, vector, ray;
 
 
@@ -62,7 +62,6 @@ function init() {
   dummy.height = 1;
   dummyCtx = dummy.getContext("2d");
 
-  graves = [];
 
   // var progressBar = document.createElement('div');
   // progressBar.classList.add('progressBar');
@@ -185,20 +184,36 @@ function init() {
 
   ////// STONE
 
+  graves = [];
+  models = [];
 
   var count = 0;
 
-  function allTombstones() {
-    var promise = createTombStone(solution[count].x - (areaSize/2), solution[count].y - (areaSize/2));
-    promise.then(function(grave) {
-      graves.push(grave);
-      riseTombstone(grave);
+  function nextTombstone() {
+
+    var x = solution[count].x - (areaSize/2);
+    var z = solution[count].y - (areaSize/2);
+
+    var grave = new Grave();
+
+    grave.init(x, z).then(function(grave) {
       count += 1;
-      if (count < solution.length) allTombstones();
+      if (count < solution.length) { nextTombstone();}
+      else {
+        controls.autoForward = true;
+        $('.wrapper').fadeOut(4000);
+      }
     });
+
+    graves.push(grave);
+    models.push(grave.model);
+
+    
   }
 
-  allTombstones();
+  nextTombstone();
+
+
 
 
 
@@ -248,7 +263,7 @@ function init() {
   controls.movementSpeed = 0.1;
   controls.lookSpeed = 0.1;
   controls.activeLook = false;
-  controls.autoForward =  true;
+  controls.autoForward =  false;
   controls.lookVertical = false;
   controls.lookHorizontal = false;
   // controls.constrainVertical = true;
@@ -266,6 +281,8 @@ function init() {
   projector = new THREE.Projector();
   document.addEventListener( 'mousemove', onDocumentMouseMove, false );
   document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+  // document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+  // document.addEventListener( 'touchstart', onDocumentMouseDown, false );
 
   //////// RAYS
 
@@ -338,17 +355,21 @@ String.prototype.splice = function(idx, rem, str) {
 function animate() {
 
   //camera.position.y = 0;
+
+
   for ( var i = 0; i < graves.length - 1; i ++ ) {
-    var graveZ = graves[i].position.z;
+    var grave = graves[i];
+    var model = grave.model;
+    var graveZ = model.position.z;
     var cameraZ = camera.position.z;
-    var graveX = graves[i].position.x;
+    var graveX = model.position.x;
     var cameraX = camera.position.x;
     var updateTexture = false;
-    if ((graveZ - cameraZ) > (areaSize/2)) { graves[i].position.z -= areaSize; updateTexture = true; }
-    if ((graveZ - cameraZ) < ((areaSize/2)*-1)) { graves[i].position.z += areaSize; updateTexture = true; }
-    if ((graveX - cameraX) > (areaSize/2)) { graves[i].position.x -= areaSize; updateTexture = true; }
-    if ((graveX - cameraX) < ((areaSize/2)*-1)) { graves[i].position.x += areaSize; updateTexture = true; }
-    if (updateTexture) updateRandomTexture(graves[i]);
+    if ((graveZ - cameraZ) > (areaSize/2)) { model.position.z -= areaSize; updateTexture = true; }
+    if ((graveZ - cameraZ) < ((areaSize/2)*-1)) { model.position.z += areaSize; updateTexture = true; }
+    if ((graveX - cameraX) > (areaSize/2)) { model.position.x -= areaSize; updateTexture = true; }
+    if ((graveX - cameraX) < ((areaSize/2)*-1)) { model.position.x += areaSize; updateTexture = true; }
+    if (updateTexture) grave.texturise();
   }
 
 
@@ -375,12 +396,12 @@ function animate() {
   ray.set( camera.position, vector.sub( camera.position ).normalize() );
 
   // create an array containing all objects in the scene with which the ray intersects
-  var intersects = ray.intersectObjects( graves );
+  var intersects = ray.intersectObjects(models);
 
   if ( intersects.length > 0 ) {
       // if the closest object intersected is not the currently stored intersection object
     if ( intersects[ 0 ].object != INTERSECTED )  {
-      INTERSECTED = intersects[ 0 ].object;
+      INTERSECTED = intersects[0].object;
       renderer.domElement.style.cursor = "pointer";
     }
   } else  {
