@@ -72,7 +72,7 @@ function Grave() {
 
           var loader = new THREE.TextureLoader();
           var texture  = loader.load( "graves/" + _this.website.url, function() {
-            var colour = _this.website.rgb;
+            var colour = new THREE.Color(_this.website.rgb);
             texture.minFilter = THREE.LinearFilter;
             var website = new THREE.MeshBasicMaterial( { map: texture, needsUpdate: true});
             var materialArray = [colour,colour,colour,colour,website,website,];

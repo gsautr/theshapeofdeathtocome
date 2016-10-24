@@ -149,7 +149,7 @@ window.setImmediate = (function () {
     // How big is the image?
     var imgWidth  = img.width  * config.scale;
     var imgHeight = img.height * config.scale;
-    width  = img.width  * config.scale;
+    width  = (img.width  * config.scale) * 2;
     height = window.innerHeight;
 
     // Fill the container
@@ -174,7 +174,18 @@ window.setImmediate = (function () {
     ctx.rect(0,0,width, height);
     ctx.fillStyle = "rgba(255,255,255,1)";
     ctx.fill();
-    ctx.drawImage(img, (width/2) - (imgWidth/2), (height * 0.6) - (imgHeight/2), imgWidth, imgHeight);
+    ctx.drawImage(img, (width/2) - (imgWidth/2), (height * 0.55) - (imgHeight/2), imgWidth, imgHeight);
+
+    // var fontSize = 80;
+    // var fontOffset = 0.3;
+    // ctx.fillStyle = "rgba(30,30,30,1)";
+    // ctx.font = "italic bold " + fontSize+ "px serif";
+    // ctx.textAlign = "center";
+    // var txt1 = ("the shape of").split("").join(String.fromCharCode(8202));
+    // var txt2 = ("death to come").split("").join(String.fromCharCode(8202));
+    // ctx.fillText(txt1, width/2, height * fontOffset);
+    // ctx.fillText(txt2, width/2, (height * fontOffset) + fontSize);
+
     bitmap = ctx.getImageData(0, 0, width, height);
     bitmapData = bitmap.data;
 
