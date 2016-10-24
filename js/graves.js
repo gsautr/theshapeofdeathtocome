@@ -19,7 +19,6 @@ function Grave() {
     var tweenPosition = new TWEEN.Tween(_this.model.position)
       .to({ y: (_this.h/2)+0.5 }, 6000)
       .onUpdate(function() {
-        console.log();
       })
       .onComplete(function() {})
       .easing(TWEEN.Easing.Quadratic.InOut)
@@ -43,7 +42,6 @@ function Grave() {
         //console.log("Grave.init");
 
         _this.texturise().then(function() {
-          _this.rise();
           resolve();
           //console.log(image);
         });
@@ -57,6 +55,7 @@ function Grave() {
   this.texturise = function() {
 
 
+      _this.model.position.y = -_this.h/2;
       //console.log("Grave.texturise");
       shuffledIndex = (shuffledIndex < shuffled.length - 1) ? shuffledIndex + 1 : 0;
       _this.website = websites[shuffled[shuffledIndex]];
@@ -84,6 +83,7 @@ function Grave() {
 
             _this.loadingTexture = false;
 
+            _this.rise();
             resolve();
 
           });
