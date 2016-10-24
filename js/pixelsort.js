@@ -1,14 +1,14 @@
 /* global dat, jQuery */
 
+var stopPixelSort = false;
 // Configuration stuff, settable with dat.Gui
 var config = {
-  strength:  0.75,
+  strength:  0.8,
   threshold: 0.45,
   scale:     1,
   vertical:  true
 };
 
-var counter = 0;
 
 // shim layer with setTimeout fallback
 window.requestAnimFrame = (function(){
@@ -125,12 +125,12 @@ window.setImmediate = (function () {
     }
 
     // Repeat immediately
-    window.setImmediate(iterate);
+    if (!stopPixelSort) window.setImmediate(iterate);
   }
 
   // Copy the latest bitmap to the canvas every frame
   function draw() {
-      window.requestAnimFrame(draw);
+      if (!stopPixelSort) window.requestAnimFrame(draw);
       ctx.putImageData(bitmap, 0, 0);
   }
 
@@ -174,7 +174,7 @@ window.setImmediate = (function () {
     ctx.rect(0,0,width, height);
     ctx.fillStyle = "rgba(255,255,255,1)";
     ctx.fill();
-    ctx.drawImage(img, (width/2) - (imgWidth/2), (height/2) - (imgHeight/2), imgWidth, imgHeight);
+    ctx.drawImage(img, (width/2) - (imgWidth/2), (height * 0.6) - (imgHeight/2), imgWidth, imgHeight);
     bitmap = ctx.getImageData(0, 0, width, height);
     bitmapData = bitmap.data;
 
@@ -200,7 +200,6 @@ window.setImmediate = (function () {
   // Adds controls
   function addDatGui() {
     gui = new dat.GUI();
-    gui.close();
 
     gui.add(config, 'scale', 1, 4).step(1).onFinishChange(reload);
     gui.add(config, 'strength', 0, 1).onFinishChange(reload);
@@ -239,10 +238,6 @@ window.setImmediate = (function () {
       .bind('drop', fileDropped);
   }
 
-  // Open canvas as img
-  function clicked() {
-    open().document.write('<img src="'+$canvas[0].toDataURL()+'"/>');
-  }
 
   function init() {
     // Create the canvas

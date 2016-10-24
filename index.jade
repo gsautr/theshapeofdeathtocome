@@ -1,18 +1,17 @@
 head
 	link(rel="stylesheet", href="css/style.css")
 body
-	script(src="js/three.min.js")
-	script(src="js/three.orbitcontrols.js")
-	script(src="js/three.firstpersoncontrols.js")
-	script(src="js/three.flycontrols.js")
-	script(src="js/three.projector.js")
-	script(src="js/dat.gui.min.js")
-	script(src="tween.min.js")
-	script(src="underscore.min.js")
-	script(src="poisson-disc.js")
-	script(src="js/jquery.min.js")
-	script(src="js/graves.js") 
-	script(src="script-min.js") 
-	script(src="js/pixelsort.js") 
+	script(src="js/script-min.js")
+	.ui
+		p.controls  move with ⍇⍐⍗⍈ / click to toggle
 	.wrapper
-		.geocities
+		.inner
+			.centred 
+				h1.title the shape of death to come
+				p.links
+					a(href="https://www.evernote.com/l/AFdxXrif_3FOh4hXD2aQzZLh4r0TSk9H2EU", target="_blank") text
+					span /
+					a.enter(href="#") enter
+			.geocities
+	.curtain
+	canvas.3d

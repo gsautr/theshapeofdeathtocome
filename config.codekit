@@ -22,17 +22,6 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/graves.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/graves.js",
-		"outputAbbreviatedPath": "\/min\/graves-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
 	"\/graves\/11bravovet%2Fpowmia.html.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -9009,7 +8998,7 @@
 		},
 	"\/js\/dat.gui.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/dat.gui.min.js",
 		"outputAbbreviatedPath": "\/js\/min\/dat.gui.min-min.js",
@@ -9018,9 +9007,20 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/js\/database.graves.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/database.graves.js",
+		"outputAbbreviatedPath": "\/js\/min\/database.graves-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/js\/graves.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/graves.js",
 		"outputAbbreviatedPath": "\/js\/min\/graves-min.js",
@@ -9031,7 +9031,7 @@
 		},
 	"\/js\/jquery.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/jquery.min.js",
 		"outputAbbreviatedPath": "\/js\/min\/jquery.min-min.js",
@@ -9040,34 +9040,12 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/min\/graves-min.js": {
+	"\/js\/main.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/min\/graves-min.js",
-		"outputAbbreviatedPath": "\/js\/min\/min\/graves-min-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/js\/min\/pixelsort-min.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/min\/pixelsort-min.js",
-		"outputAbbreviatedPath": "\/js\/min\/min\/pixelsort-min-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/js\/min\/three.firstpersoncontrols-min.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/js\/min\/three.firstpersoncontrols-min.js",
-		"outputAbbreviatedPath": "\/js\/min\/min\/three.firstpersoncontrols-min-min.js",
+		"inputAbbreviatedPath": "\/js\/main.js",
+		"outputAbbreviatedPath": "\/js\/min\/main-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -9075,7 +9053,7 @@
 		},
 	"\/js\/pixelsort.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/pixelsort.js",
 		"outputAbbreviatedPath": "\/js\/min\/pixelsort-min.js",
@@ -9084,9 +9062,42 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/js\/three.firstpersoncontrols.js": {
+	"\/js\/poisson-disc.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/poisson-disc.js",
+		"outputAbbreviatedPath": "\/js\/min\/poisson-disc-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/script-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/script-min.js",
+		"outputAbbreviatedPath": "\/js\/min\/script-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/script.js": {
 		"fileType": 64,
 		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/script.js",
+		"outputAbbreviatedPath": "\/js\/script-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 1,
+		"outputStyle": 2,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/three.firstpersoncontrols.js": {
+		"fileType": 64,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/three.firstpersoncontrols.js",
 		"outputAbbreviatedPath": "\/js\/min\/three.firstpersoncontrols-min.js",
@@ -9097,8 +9108,8 @@
 		},
 	"\/js\/three.flycontrols.js": {
 		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
 		"inputAbbreviatedPath": "\/js\/three.flycontrols.js",
 		"outputAbbreviatedPath": "\/js\/min\/three.flycontrols-min.js",
 		"outputPathIsOutsideProject": 0,
@@ -9108,7 +9119,7 @@
 		},
 	"\/js\/three.min.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/three.min.js",
 		"outputAbbreviatedPath": "\/js\/min\/three.min-min.js",
@@ -9119,7 +9130,7 @@
 		},
 	"\/js\/three.orbitcontrols.js": {
 		"fileType": 64,
-		"ignore": 0,
+		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/js\/three.orbitcontrols.js",
 		"outputAbbreviatedPath": "\/js\/min\/three.orbitcontrols-min.js",
@@ -9130,10 +9141,32 @@
 		},
 	"\/js\/three.projector.js": {
 		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
 		"inputAbbreviatedPath": "\/js\/three.projector.js",
 		"outputAbbreviatedPath": "\/js\/min\/three.projector-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/tween.min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/js\/tween.min.js",
+		"outputAbbreviatedPath": "\/js\/min\/tween.min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/js\/underscore.min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/underscore.min.js",
+		"outputAbbreviatedPath": "\/js\/min\/underscore.min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -9150,38 +9183,27 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/poisson-disc.js": {
-		"fileType": 64,
+	"\/logo_big.jpg": {
+		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/poisson-disc.js",
-		"outputAbbreviatedPath": "\/min\/poisson-disc-min.js",
+		"initialSize": 107311,
+		"inputAbbreviatedPath": "\/logo_big.jpg",
+		"outputAbbreviatedPath": "\/logo_big.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
+		"processed": 0
 		},
-	"\/script-min.js": {
+	"\/min\/script-min.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/script-min.js",
-		"outputAbbreviatedPath": "\/min\/script-min-min.js",
+		"inputAbbreviatedPath": "\/min\/script-min.js",
+		"outputAbbreviatedPath": "\/min\/min\/script-min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
-		},
-	"\/script.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 1,
-		"inputAbbreviatedPath": "\/script.js",
-		"outputAbbreviatedPath": "\/script-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 1,
-		"outputStyle": 0,
-		"syntaxCheckerStyle": 0
 		},
 	"\/style.sass": {
 		"createSourceMap": 0,
@@ -25422,28 +25444,6 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/three\/utils\/servers\/simplehttpserver.js",
 		"outputAbbreviatedPath": "\/three\/utils\/servers\/min\/simplehttpserver-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/tween.min.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/tween.min.js",
-		"outputAbbreviatedPath": "\/min\/tween.min-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
-	"\/underscore.min.js": {
-		"fileType": 64,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/underscore.min.js",
-		"outputAbbreviatedPath": "\/min\/underscore.min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,

@@ -1,4 +1,4 @@
-// @codekit-prepend "graves.js";
+
 
 var shuffled = [];
 var shuffledIndex = 780;
@@ -122,6 +122,7 @@ function init() {
   datGui.add( spotlightGui, "z", -lightDist, lightDist ).onChange( spotlightChange );
   datGui.add( spotlightGui, "y", -lightDist, lightDist ).onChange( spotlightChange );
 
+  datGui.close();
   dat.GUI.toggleHide();
 
   /////// SCENE
@@ -140,8 +141,8 @@ function init() {
   scene.fog = new THREE.FogExp2( 0xffffff, gui.fogDensity );
 
   //////// RENDERER
-
-  renderer = new THREE.WebGLRenderer({antialias:true});
+  var canvas = $('canvas.3d');
+  renderer = new THREE.WebGLRenderer({antialias:true, canvas: canvas[0]});
   renderer.setSize(w, h);
   if (shadow) renderer.shadowMap.enabled = true;
   if (shadow) renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -196,14 +197,14 @@ function init() {
 
     var grave = new Grave();
 
-    grave.init(x, z).then(function(grave) {
+    function completeGrave(grave) {
+
       count += 1;
-      if (count < solution.length) { nextTombstone();}
-      else {
-        controls.autoForward = true;
-        $('.wrapper').fadeOut(4000);
-      }
-    });
+      $('.loading').text("loading initial " + count + "/"+ solution.length);
+      if (count < solution.length) { nextTombstone();} else { controls.autoForward = true; }
+    }
+
+    grave.init(x, z).then(completeGrave, completeGrave);
 
     graves.push(grave);
     models.push(grave.model);
@@ -280,6 +281,7 @@ function init() {
 
   projector = new THREE.Projector();
   document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
   document.addEventListener( 'mousedown', onDocumentMouseDown, false );
   // document.addEventListener( 'mousemove', onDocumentMouseMove, false );
   // document.addEventListener( 'touchstart', onDocumentMouseDown, false );
@@ -421,11 +423,6 @@ function animate() {
   camera.updateProjectionMatrix();
   renderer.render(scene, camera);
 
-  // renderer.setViewport( 0, 0, window.innerWidth/2, window.innerHeight );
-  // renderer.setScissor( 0, 0, window.innerWidth/2, window.innerHeight );
-  // renderer.setScissorTest( true );
-  // camera.updateProjectionMatrix();
-  // renderer.render(scene, godCamera);
 
 
 
@@ -437,6 +434,14 @@ window.onload = function () {
 
   init();
   animate(); 
+
+  $('.enter')[0].addEventListener('click', function(e) {
+    $('.wrapper').fadeOut(1000);
+    $('.curtain').fadeOut(1000);
+    controls.autoForward = true;
+    stopPixelSort = true;
+    e.preventDefault();
+  }, 4000);
 
 };
   

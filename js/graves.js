@@ -10,7 +10,7 @@ function Grave() {
   this.image = null;
 
   this.rise = function() {
-    console.log("Grave.rise");
+    //console.log("Grave.rise");
     _this.h = (_this.image) ? (_this.w / 800) * _this.image.height : _this.size;
     _this.model.geometry = new THREE.BoxGeometry( _this.w, _this.h, _this.depth);
     _this.model.position.y = -_this.h/2;
@@ -39,7 +39,7 @@ function Grave() {
         _this.model.castShadow = true;
 
         scene.add( _this.model );
-        console.log("Grave.init");
+        //console.log("Grave.init");
 
         _this.texturise().then(function(image) {
           _this.image = image;
@@ -57,7 +57,7 @@ function Grave() {
   this.texturise = function() {
 
 
-      console.log("Grave.texturise");
+      //console.log("Grave.texturise");
       shuffledIndex = (shuffledIndex < shuffled.length - 1) ? shuffledIndex + 1 : 0;
       _this.url = websites[shuffled[shuffledIndex]];
 
