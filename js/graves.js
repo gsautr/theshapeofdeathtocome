@@ -56,10 +56,11 @@ function createTombStone(x, z) {
 
 function randomTexture() {
 
+  shuffledIndex = (shuffledIndex < shuffled.length - 1) ? shuffledIndex + 1 : 0;
+  var randImg = websites[shuffled[shuffledIndex]];
+  
   var promise = new Promise(function(resolve, reject) {
 
-      shuffledIndex = (shuffledIndex < shuffled.length - 1) ? shuffledIndex + 1 : 0;
-      var randImg = websites[shuffled[shuffledIndex]];
 
       while (randImg.indexOf("%2F") !== -1) {
           var index = randImg.indexOf("%2F");

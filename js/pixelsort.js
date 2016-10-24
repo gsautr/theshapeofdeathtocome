@@ -207,10 +207,10 @@ window.setImmediate = (function () {
     gui.add(config, 'threshold', -1, 1).onFinishChange(reload);
     gui.add(config, 'vertical').onFinishChange(reload);
 
-    $('#controls').on('click', function () {
-      gui.open();
-      return false;
-    });
+    // $('#controls').on('click', function () {
+    //   gui.open();
+    //   return false;
+    // });
   }
 
   // Dropping occured
@@ -264,4 +264,9 @@ window.setImmediate = (function () {
 
   // Leggo!
   $(init);
+
+  window.setTimeout(function() {
+    $('.wrapper').fadeOut(4000);
+  }, 4000);
+
 }(jQuery, '.geocities'));

@@ -192,9 +192,7 @@ function init() {
     var promise = createTombStone(solution[count].x - (areaSize/2), solution[count].y - (areaSize/2));
     promise.then(function(grave) {
       graves.push(grave);
-
       riseTombstone(grave);
-
       count += 1;
       if (count < solution.length) allTombstones();
     });
