@@ -66,7 +66,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 	}
 	var _this = this;
-	window.addEventListener('mousewheel', function(e){
+	renderer.domElement.addEventListener('mousewheel', function(e){
 		var maxDelta = 200;
 		_this.verticalDelta = THREE.Math.mapLinear(e.wheelDelta, -maxDelta, maxDelta, -0.2, 0.2);
 		if (_this.verticalDelta > 0.2) _this.verticalDelta = 0.2;
@@ -306,7 +306,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 		this.smoothMovementSpeed = (this.smoothMovementSpeed * ratio) + (this.movementSpeed * (1 - ratio));
 		if (this.autoForward) {
-
+			// this.object.translateZ(-this.smoothMovementSpeed);
 			position.z += this.smoothMovementSpeed;
 		}
 		targetPosition.x = position.x + 100 * Math.sin( this.phi ) * Math.cos( this.theta );

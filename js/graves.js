@@ -20,7 +20,11 @@ function Grave() {
       .to({ y: (_this.h/2)+0.5 }, 6000)
       .onUpdate(function() {
       })
-      .onComplete(function() {})
+      .onComplete(function() {
+
+        _this.loadingTexture = false;
+
+      })
       .easing(TWEEN.Easing.Quadratic.InOut)
       .start();
 
@@ -81,7 +85,6 @@ function Grave() {
             _this.model.material = material;
             _this.model.needsUpdate = true;
 
-            _this.loadingTexture = false;
 
             _this.rise();
             resolve();

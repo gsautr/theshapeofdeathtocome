@@ -7,6 +7,8 @@ body
 	overflow: hidden
 	padding: 0
 	margin: 0
+	letter-spacing: 0.1em
+	font-style: italic
 
 .progressBar
 	position: fixed
@@ -39,9 +41,6 @@ span , h1
 	top: 0
 	background-color: rgba(255,255,255,0.9)
 	z-index: 2
-*
-	letter-spacing: 0.1em
-	font-style: italic
 
 .geocities
 	canvas
@@ -62,32 +61,60 @@ body > canvas
 		top: 0
 		left: 0
 		text-align: center
-		.title,.controls,.links
-			position: absolute
-			top: 30%
-			left: 50%
-			transform: translate(-50%, -50%)
-		.controls
-			font-size: 3vh
-		.links
-			font-size: 6vh
-			display: inline-block
-			top: 80%
-			a
-				color: #222
-				color: #fff
-				background-color: #333
-				cursor: pointer
-				padding: 0em 0.3em
-				&:hover
-					background-color: #222
-		h1
+		overflow-y: scroll
+		.centred
+			margin: 0 auto
+			max-width: 640px
+			.text
+				display: block
+				opacity: 0
+				max-height: 0px
+				overflow: hidden
+				padding: 0em 1em
+				text-align: left
+				font-style: normal!important
+				text-align: left
+				line-height: 1.8em
+				letter-spacing: 0.05em
+				transition: opacity 1s ease
+				&.visible
+					max-height: 2000px
+					opacity: 1
+				.name
+					padding: 1em 0em
+				a, a:visited, a:hover, a:active
+					color: #333
+					font-style: italic
+					//font-weight: bold
+				p
+					margin-bottom: 1.8em
+			.links
+				font-size: 6vh
+				margin-bottom: 15vh
+				margin-top: 5vh
+				a
+					color: #222
+					color: #fff
+					background-color: #333
+					cursor: pointer
+					padding: 0em 0.3em
+					&:hover
+						background-color: #222
+		.title
 			color: #fff
 			background-color: #333
-			font-size: 8vh
+			font-size: 9vh
 			margin: 0
-			margin-bottom: 10vh
+			margin-top: 15vh
+			margin-bottom: 30vh
 			letter-spacing: 2vh
 			padding: 1vh 2vh
+		.title, .text, .links
+			position: relative
+			z-index: 10
 		.geocities
 			margin: 0 auto
+			position: absolute
+			left: 50%
+			top: 45%
+			transform: translate(-50%, -50%)

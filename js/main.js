@@ -280,9 +280,8 @@ function init() {
 
 
   projector = new THREE.Projector();
-  document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-
-  document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+  renderer.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
+  renderer.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
   // document.addEventListener( 'mousemove', onDocumentMouseMove, false );
   // document.addEventListener( 'touchstart', onDocumentMouseDown, false );
 
@@ -329,18 +328,20 @@ function onDocumentMouseDown( event ) {
       var destination = line.at(THREE.Math.mapLinear(6, 0, line.distance(), 0, 1));
       destination = INTERSECTED.position;
 
+      console.log(destination.z, camera.position.z);
+      var destinationZ = (destination.z > camera.position.z) ? destination.z - 4 : destination.z + 4;
 
       var tweenPosition = new TWEEN.Tween(camera.position)
         .to({
           x: destination.x,
-          z: destination.z - 4,
-        }, THREE.Math.mapLinear(line.distance(), 0, 40, 0, 2000))
+          z: destinationZ,
+        }, THREE.Math.mapLinear(line.distance(), 0, 40, 0, 3000))
         .onUpdate(function() {
           //camera.lookAt(destination);
         })
         .onComplete(function() {
         })
-        .easing(TWEEN.Easing.Quadratic.InOut)
+        .easing(TWEEN.Easing.Sinusoidal.InOut)
         .start();
 
     } else {
@@ -434,6 +435,11 @@ window.onload = function () {
 
   init();
   animate(); 
+
+  $('.show-text')[0].addEventListener('click', function(e) {
+    $('.text').toggleClass('visible');
+    e.preventDefault();
+  });
 
   $('.enter')[0].addEventListener('click', function(e) {
     $('.wrapper').fadeOut(1000);
