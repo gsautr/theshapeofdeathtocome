@@ -7,7 +7,8 @@ body {
   padding: 0;
   margin: 0;
   letter-spacing: 0.1em;
-  font-style: italic; }
+  font-style: italic;
+  font-size: 18px; }
 
 .progressBar {
   position: fixed;
@@ -45,7 +46,6 @@ span, h1 {
   max-width: 100vw; }
 
 .wrapper {
-  cursor: pointer;
   mix-blend-mode: multiply;
   z-index: 3;
   position: relative; }
@@ -73,19 +73,20 @@ span, h1 {
         letter-spacing: 0.05em;
         transition: opacity 1s ease; }
         .wrapper .inner .centred .text.visible {
-          max-height: 2000px;
+          max-height: 2200px;
           opacity: 1; }
         .wrapper .inner .centred .text .name {
           padding: 1em 0em; }
         .wrapper .inner .centred .text a, .wrapper .inner .centred .text a:visited, .wrapper .inner .centred .text a:hover, .wrapper .inner .centred .text a:active {
           color: #333;
-          font-style: italic; }
+          font-style: italic;
+          cursor: pointer; }
         .wrapper .inner .centred .text p {
           margin-bottom: 1.8em; }
       .wrapper .inner .centred .links {
         font-size: 6vh;
         margin-bottom: 15vh;
-        margin-top: 5vh; }
+        margin-top: 4vh; }
         .wrapper .inner .centred .links a {
           color: #222;
           color: #fff;
