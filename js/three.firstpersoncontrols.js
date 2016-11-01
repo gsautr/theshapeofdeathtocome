@@ -17,7 +17,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 	this.enabled = true;
 
-	this.movementSpeed = 1.0;
+	this.movementSpeed = 0.06;
 	this.lookSpeed = 0.005;
 	this.smoothedLookSpeed = 0;
 	this.smoothHeightAdjust = 0;
@@ -304,13 +304,13 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 		var ratio = 0.999;
 
-		this.smoothMovementSpeed = (this.smoothMovementSpeed * ratio) + (this.movementSpeed * (1 - ratio));
+		//this.smoothMovementSpeed = (this.smoothMovementSpeed * ratio) + (this.movementSpeed * (1 - ratio));
 		if (this.autoForward) {
-			// this.object.translateZ(-this.smoothMovementSpeed);
-			position.z += this.smoothMovementSpeed;
+			this.object.translateZ(-this.movementSpeed);
+			//position.z -= this.smoothMovementSpeed;
 		}
 		targetPosition.x = position.x + 100 * Math.sin( this.phi ) * Math.cos( this.theta );
-		targetPosition.y = position.y + 100 * Math.cos( this.phi );
+		//targetPosition.y = position.y + 100 * Math.cos( this.phi );
 		targetPosition.z = position.z + 100 * Math.sin( this.phi ) * Math.sin( this.theta );
 
 

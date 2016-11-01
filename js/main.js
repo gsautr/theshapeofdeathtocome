@@ -261,7 +261,6 @@ function init() {
 
 
   controls = new THREE.FirstPersonControls( camera , renderer.domElement);
-  controls.movementSpeed = 0.1;
   controls.lookSpeed = 0.1;
   controls.activeLook = false;
   controls.autoForward =  false;
