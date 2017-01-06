@@ -431,16 +431,18 @@ window.onload = function () {
   init();
   animate(); 
 
-  $('.show-text')[0].addEventListener('click', function(e) {
-    $('.text').toggleClass('visible');
-    e.preventDefault();
+  $('.show-text').click(function(e) {
+
+      $('.wrapper').fadeIn(1000);
+      $('.curtain').fadeIn(1000);
+      $('.text').toggleClass('visible');
+      e.preventDefault();
   });
 
 
   $('.enter')[0].addEventListener('click', function(e) {
     $('.wrapper').fadeOut(1000);
     $('.curtain').fadeOut(1000);
-    stopPixelSort = true;
     e.preventDefault();
   }, 4000);
 

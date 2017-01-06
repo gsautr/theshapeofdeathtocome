@@ -25,12 +25,11 @@ body
 	//- script(src="js/pixelsort.js")
 	//- script(src="js/main.js")
 	script(src="js/script-min.js")
-	.ui
-		p.controls  move with AWSD letters and mouse, click to zoom
 	.wrapper
 		.inner
 			.centred 
 				h1.title the shape of death to come
+				.geocities
 				.text
 					p
 						| Geocities was the first mass-use free web hosting service online. Originally named 
@@ -73,10 +72,17 @@ body
 							a(target='_blank', href='http://digitalnecropolis.net') Digital Necropolis
 							|  by Dr. Emily West and Stephan Schäfer.
 
+				.ui
+					p
+						| Instructions: move with AWSD letters &amp; mouse XY, click to zoom
+					p
+						a.show-text(href="#") Read full text 
+					p
+						| Created by  
+						a(href="http://autr.tv", target="_blank")  Gilbert Sinnott
 				p.links
 					a.show-text(href="#") read text
 					span /
 					a.enter(href="#") enter site
-			.geocities
 	.curtain
 	canvas.3d

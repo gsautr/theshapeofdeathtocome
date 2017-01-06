@@ -149,8 +149,8 @@ window.setImmediate = (function () {
     // How big is the image?
     var imgWidth  = img.width  * config.scale;
     var imgHeight = img.height * config.scale;
-    width  = (img.width  * config.scale) * 2;
-    height = window.innerHeight;
+    width  = (img.width  * config.scale);
+    height = imgHeight * config.scale * 4;
 
     // Fill the container
     $canvas.css('width', width)
@@ -174,7 +174,7 @@ window.setImmediate = (function () {
     ctx.rect(0,0,width, height);
     ctx.fillStyle = "rgba(255,255,255,1)";
     ctx.fill();
-    ctx.drawImage(img, (width/2) - (imgWidth/2), (height * 0.55) - (imgHeight/2), imgWidth, imgHeight);
+    ctx.drawImage(img, (width/2) - (imgWidth/2), 0, imgWidth, imgHeight);
 
     // var fontSize = 80;
     // var fontOffset = 0.3;
