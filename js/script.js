@@ -1,7 +1,6 @@
 // @codekit-prepend "database.graves.js";
 // @codekit-prepend "three.min.js";
-// @codekit-prepend "three.orbitcontrols.js";
-// @codekit-prepend "three.firstpersoncontrols.js";
+// @codekit-prepend "three.deathcontrols.js";
 // @codekit-prepend "three.projector.js";
 // @codekit-prepend "dat.gui.min.js";
 // @codekit-prepend "tween.min.js";

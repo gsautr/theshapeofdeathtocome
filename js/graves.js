@@ -39,6 +39,7 @@ function Grave() {
         _this.model.position.y = -_this.h/2;
         _this.model.position.x = x;
         _this.model.position.z = z;
+        _this.model.rotation.y = 90  * Math.PI / 180;
         _this.model.receiveShadow = true;
         _this.model.castShadow = true;
 

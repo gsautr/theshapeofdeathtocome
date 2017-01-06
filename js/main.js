@@ -67,10 +67,6 @@ function init() {
   // progressBar.classList.add('progressBar');
   // document.body.appendChild(progressBar);
   manager = new THREE.LoadingManager();
-  manager.onProgress = function ( item, loaded, total ) {
-    //console.log(loaded);
-    //progressBar.style.width = (loaded / total * 100) + 'px';
-  };
 
   /////// CLOCK
 
@@ -201,7 +197,7 @@ function init() {
 
       count += 1;
       $('.loading').text("loading initial " + count + "/"+ solution.length);
-      if (count < solution.length) { nextTombstone();} else { controls.autoForward = true; }
+      if (count < solution.length) nextTombstone();
     }
 
     grave.init(x, z).then(completeGrave, completeGrave);
@@ -243,6 +239,8 @@ function init() {
   source.position.z = 20;
 
   camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 20000);
+  camera.position.y = 3;
+  // camera.rotation.x += 90;
   scene.add(camera);
   camera.add(source);
   source.add(light);
@@ -261,12 +259,10 @@ function init() {
 
 
   controls = new THREE.FirstPersonControls( camera , renderer.domElement);
-  controls.movementSpeed = 0.1;
-  controls.lookSpeed = 0.1;
-  controls.activeLook = false;
+  controls.activeLook = true;
   controls.autoForward =  false;
   controls.lookVertical = false;
-  controls.lookHorizontal = false;
+  controls.lookHorizontal = true;
   // controls.constrainVertical = true;
   // controls.verticalMin = 0.8;
   // controls.verticalMax = 2.2;
@@ -324,17 +320,16 @@ function onDocumentMouseDown( event ) {
 
       var position = INTERSECTED.position;
       var line = new THREE.Line3(INTERSECTED.position, camera.position);
-      window.line = line;
+
       var destination = line.at(THREE.Math.mapLinear(6, 0, line.distance(), 0, 1));
       destination = INTERSECTED.position;
 
-      console.log(destination.z, camera.position.z);
-      var destinationZ = (destination.z > camera.position.z) ? destination.z - 4 : destination.z + 4;
+      var destinationX = (destination.x > camera.position.x) ? destination.x - 4 : destination.z + x;
 
       var tweenPosition = new TWEEN.Tween(camera.position)
         .to({
-          x: destination.x,
-          z: destinationZ,
+          x: destinationX,
+          z: destination.z,
         }, THREE.Math.mapLinear(line.distance(), 0, 40, 0, 3000))
         .onUpdate(function() {
           //camera.lookAt(destination);
@@ -441,10 +436,10 @@ window.onload = function () {
     e.preventDefault();
   });
 
+
   $('.enter')[0].addEventListener('click', function(e) {
     $('.wrapper').fadeOut(1000);
     $('.curtain').fadeOut(1000);
-    controls.autoForward = true;
     stopPixelSort = true;
     e.preventDefault();
   }, 4000);

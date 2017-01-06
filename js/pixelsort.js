@@ -258,11 +258,9 @@ window.setImmediate = (function () {
     $container.append($canvas);
     ctx = $canvas[0].getContext('2d');
 
-    // Allow dropping files
-    initFileDrop($('html'));
 
     // Controls
-    addDatGui();
+    // addDatGui();
 
     // On resize: reload(). Now: reload()
     $(window).resize(reload).resize();
