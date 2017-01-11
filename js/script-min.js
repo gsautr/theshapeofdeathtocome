@@ -5808,7 +5808,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 	this.disabled = false;
 
 	this.minimumHeight = this.object.position.y;
-	this.maximumHeight = this.object.position.y + 60;
+	this.maximumHeight = this.object.position.y + 100;
 	this.targetPositionY = this.object.position.y + 10;
 
 	this.heightDriftSpeed = 0.0004;
