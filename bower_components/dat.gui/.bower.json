@@ -1,0 +1,34 @@
+{
+  "name": "dat.gui",
+  "version": "0.6.2",
+  "homepage": "https://github.com/dataarts/dat.gui.git",
+  "authors": [
+    "Google Data Arts Team <dataarts@google.com>"
+  ],
+  "description": "dat.gui is a lightweight controller library for JavaScript.",
+  "main": "./index.js",
+  "keywords": [
+    "controller",
+    "javascript",
+    "gui",
+    "slider"
+  ],
+  "license": "Apache License, Version 2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "0.6.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.6.2",
+    "commit": "d5b6178e33db91b168a1264dcc5252be2d6510ef"
+  },
+  "_source": "https://github.com/dataarts/dat.gui.git",
+  "_target": "^0.6.2",
+  "_originalSource": "dat-gui"
+}

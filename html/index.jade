@@ -1,0 +1,28 @@
+head
+	link(rel="stylesheet", href="css/style.css")
+	title The shape of death to come - internet epitaphs &amp; memorials of Yahoo Geocities
+	meta(name="description" content="Interactive graveyard of internet epitaphs & memorials recovered from the Yahoo Geocities archive")
+	meta(property='og:type', content='article')
+	meta(property='og:title', content='The shape of death to come - internet epitaphs & memorials of Yahoo Geocities')
+	meta(property='og:site_name', content='Gilbert Sinnott')
+	meta(property='og:url', content='http://gilbertsinnott.com/theshapeofdeathtocome')
+	meta(property='og:image', content='http://gilbertsinnott.com/theshapeofdeathtocome/screenshot.png')
+	meta(property='article:published_time', content='2016-11-01')
+	meta(property='article:author', content='https://twitter.com/gilbertsinnott')
+
+body
+	script(src="js/libs-min.js")
+	script(src="js/script-min.js")
+	.ui
+		p.controls  move with arrows or letters / click to zoom
+	.wrapper
+		.inner
+			.centred 
+				include _article
+				p.links
+					a.show-text(href="#") text
+					span /
+					a.enter(href="#") enter
+			.geocities
+	.curtain
+	canvas.3d
