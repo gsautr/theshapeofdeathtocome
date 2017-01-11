@@ -263,6 +263,7 @@ function init() {
   controls.autoForward =  false;
   controls.lookVertical = false;
   controls.lookHorizontal = true;
+  controls.disabled = true;
   // controls.constrainVertical = true;
   // controls.verticalMin = 0.8;
   // controls.verticalMax = 2.2;
@@ -436,6 +437,8 @@ window.onload = function () {
       $('.wrapper').fadeIn(1000);
       $('.curtain').fadeIn(1000);
       $('.text').toggleClass('visible');
+
+      controls.disabled = true;
       e.preventDefault();
   });
 
@@ -443,6 +446,7 @@ window.onload = function () {
   $('.enter')[0].addEventListener('click', function(e) {
     $('.wrapper').fadeOut(1000);
     $('.curtain').fadeOut(1000);
+    controls.disabled = false;
     e.preventDefault();
   }, 4000);
 

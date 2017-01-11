@@ -21,6 +21,8 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 	this.object = object;
 	this.target = new THREE.Vector3( 0, 0, 0 );
 
+	this.disabled = false;
+
 	this.minimumHeight = this.object.position.y;
 	this.maximumHeight = this.object.position.y + 30;
 	this.targetPositionY = this.object.position.y + 10;
@@ -226,6 +228,8 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 	this.update = function( delta ) {
 
 		if ( this.enabled === false ) return;
+
+		if (this.disabled === true) return;
 
 		if ( this.heightSpeed ) {
 
