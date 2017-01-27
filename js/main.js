@@ -426,6 +426,7 @@ function animate() {
 
 }
 
+var startPause = false;
 
 window.onload = function () { 
 
@@ -441,6 +442,20 @@ window.onload = function () {
       controls.disabled = true;
       e.preventDefault();
   });
+
+
+  window.addEventListener( 'keydown', function(e) {
+
+    console.log(e.keyCode);
+    startPause = !startPause;
+
+    if (e.keyCode === 13) {
+      if (startPause) $('.enter')[0].click();
+      if (!startPause) $('.show-text')[0].click();
+      
+    }
+
+  }, false );
 
 
   $('.enter')[0].addEventListener('click', function(e) {
