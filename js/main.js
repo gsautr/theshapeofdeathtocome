@@ -427,41 +427,50 @@ function animate() {
 }
 
 var startPause = false;
+function showCurtain() {
+
+      $('.wrapper').fadeIn(1000);
+      $('.curtain').fadeIn(1000);
+      $('.ui').fadeIn(1000);
+      controls.disabled = true;
+}
+
+function hideCurtain() {
+
+    $('.wrapper').fadeOut(1000);
+    $('.curtain').fadeOut(1000);
+    controls.disabled = false;
+}
 
 window.onload = function () { 
 
   init();
   animate(); 
 
+
+  window.addEventListener( 'keydown', function(e) {
+    console.log(e.keyCode);
+    if ((e.keyCode === 69)||(e.keyCode === 13)) {
+      startPause = !startPause;
+      if (startPause) hideCurtain();
+      if (!startPause) showCurtain();
+      // $('.ui').fadeOut(1000);
+    }
+  }, false );
+
   $('.show-text').click(function(e) {
 
-      $('.wrapper').fadeIn(1000);
-      $('.curtain').fadeIn(1000);
+      showCurtain();
       $('.text').toggleClass('visible');
 
-      controls.disabled = true;
       e.preventDefault();
   });
 
 
-  window.addEventListener( 'keydown', function(e) {
-
-    console.log(e.keyCode);
-    startPause = !startPause;
-
-    if (e.keyCode === 13) {
-      if (startPause) $('.enter')[0].click();
-      if (!startPause) $('.show-text')[0].click();
-      
-    }
-
-  }, false );
 
 
   $('.enter')[0].addEventListener('click', function(e) {
-    $('.wrapper').fadeOut(1000);
-    $('.curtain').fadeOut(1000);
-    controls.disabled = false;
+    hideCurtain();
     e.preventDefault();
   }, 4000);
 

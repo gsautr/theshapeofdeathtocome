@@ -24,7 +24,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 	this.disabled = false;
 
 	this.minimumHeight = this.object.position.y;
-	this.maximumHeight = this.object.position.y + 30;
+	this.maximumHeight = this.object.position.y + 100;
 	this.targetPositionY = this.object.position.y + 10;
 
 	this.heightDriftSpeed = 0.0004;
@@ -73,6 +73,7 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 	this.realMouseY = 0;
 
 	this.mouseXSmoothed = 0;
+	this.mouseYSmoothed = 0;
 
 	this.smoothHeightDrift = 0;
 	this.smoothMoveForward = 0;
@@ -297,9 +298,10 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 
 
+		this.mouseYSmoothed = (this.mouseYSmoothed * 0.9) + (this.mouseY * 0.1);
 		// LOOOK VERTICALLUY
 		if ( this.lookVertical ) { 
-			this.lat -= this.mouseY * actualLookSpeed * verticalLookRatio;
+			this.lat += this.mouseYSmoothed * actualLookSpeed;
 
 		} else { 
 
@@ -314,15 +316,9 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 					this.smoothHeightDrift = (this.smoothHeightDrift * 0.9) + (scaledMouse * 0.1);
 
 					this.object.translateY(this.smoothHeightDrift);
-					this.targetPositionY -= this.smoothHeightDrift * 0.5;
+					this.targetPositionY = 20 - (this.object.position.y * 0.6);
 
-					// var min = window.innerHeight * 0.25;
-					// var max = window.innerHeight * 0.75;
-					// if (this.realMouseY > max) this.realMouseY = max;
-					// if (this.realMouseY < min) this.realMouseY = min;
-					// var height = scale(this.realMouseY, min, max, this.minimumHeight, this.maximumHeight);
-					// var smoothing = 0.99;
-					// this.object.position.y = (height * (1 - smoothing)) + (this.object.position.y * smoothing); 
+					// console.log(this.object.position.y, this.targetPositionY);
 
 		}
 
@@ -397,106 +393,6 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 	this.handleResize();
 
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
