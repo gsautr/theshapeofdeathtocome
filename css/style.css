@@ -20,7 +20,7 @@ body {
 .geocities {
   position: relative; }
   .geocities canvas {
-    max-width: 100vw; }
+    max-width: 100vwcoe; }
 
 .ui {
   position: fixed;

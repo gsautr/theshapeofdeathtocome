@@ -7500,7 +7500,7 @@ window.setImmediate = (function () {
 (function ($, container) {
   'use strict';
 
-  var src = 'logo.png',
+  var src = 'img/logo.png',
 
     width,           // Canvas width
     rowWidth,        // Length of a row of pixels in the bitmap data
@@ -8168,7 +8168,7 @@ function animate() {
 
 }
 
-var startPause = false;
+var startPause = true;
 function showCurtain() {
 
       $('.wrapper').fadeIn(1000);
@@ -8193,42 +8193,40 @@ window.onload = function () {
   window.addEventListener( 'keydown', function(e) {
     console.log(e.keyCode);
     if ((e.keyCode === 69)||(e.keyCode === 13)) {
-      startPause = !startPause;
+      console.log('Press');
       if (startPause) hideCurtain();
-      if (!startPause) showCurtain();
-      // $('.ui').fadeOut(1000);
+      if (!startPause) { showCurtain(); $('.text').addClass('visible'); }
+      startPause = !startPause;
     }
   }, false );
 
   $('.show-text').click(function(e) {
 
-      showCurtain();
-      $('.text').toggleClass('visible');
+      startPause = false;
+      if (!startPause) { showCurtain(); $('.text').addClass('visible'); }
 
       e.preventDefault();
   });
 
 
-
-
   $('.enter')[0].addEventListener('click', function(e) {
-    hideCurtain();
-    e.preventDefault();
+      startPause = true;
+      if (startPause) hideCurtain();
   }, 4000);
 
 };
   
 
-// @codekit-prepend "database.graves.js";
-// @codekit-prepend "three.min.js";
-// @codekit-prepend "three.deathcontrols.js";
-// @codekit-prepend "three.projector.js";
-// @codekit-prepend "dat.gui.min.js";
-// @codekit-prepend "tween.min.js";
-// @codekit-prepend "underscore.min.js";
-// @codekit-prepend "poisson-disc.js";
-// @codekit-prepend "jquery.min.js";
-// @codekit-prepend "graves.js";
-// @codekit-prepend "pixelsort.js";
+// @codekit-prepend "libs/database.graves.js";
+// @codekit-prepend "libs/three.min.js";
+// @codekit-prepend "libs/three.deathcontrols.js";
+// @codekit-prepend "libs/three.projector.js";
+// @codekit-prepend "libs/dat.gui.min.js";
+// @codekit-prepend "libs/tween.min.js";
+// @codekit-prepend "libs/underscore.min.js";
+// @codekit-prepend "libs/poisson-disc.js";
+// @codekit-prepend "libs/jquery.min.js";
+// @codekit-prepend "libs/graves.js";
+// @codekit-prepend "libs/pixelsort.js";
 // @codekit-prepend "main.js";
 

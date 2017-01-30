@@ -1,1 +1,0 @@
-function getMeta(){var t=document.createElement("img"),e=websites[0];t.src=e,t.onload=function(){console.log(t.width),dummyCtx.drawImage(t,0,0,1,1);var e=dummyCtx.getImageData(0,0,1,1).data,m="rgb("+e[0]+","+e[1]+","+e[2]+")"}}var dummy=document.createElement("canvas");dummy.width=1,dummy.height=1;var dummyCtx=dummy.getContext("2d"),count=0;

@@ -426,7 +426,7 @@ function animate() {
 
 }
 
-var startPause = false;
+var startPause = true;
 function showCurtain() {
 
       $('.wrapper').fadeIn(1000);
@@ -451,27 +451,25 @@ window.onload = function () {
   window.addEventListener( 'keydown', function(e) {
     console.log(e.keyCode);
     if ((e.keyCode === 69)||(e.keyCode === 13)) {
-      startPause = !startPause;
+      console.log('Press');
       if (startPause) hideCurtain();
-      if (!startPause) showCurtain();
-      // $('.ui').fadeOut(1000);
+      if (!startPause) { showCurtain(); $('.text').addClass('visible'); }
+      startPause = !startPause;
     }
   }, false );
 
   $('.show-text').click(function(e) {
 
-      showCurtain();
-      $('.text').toggleClass('visible');
+      startPause = false;
+      if (!startPause) { showCurtain(); $('.text').addClass('visible'); }
 
       e.preventDefault();
   });
 
 
-
-
   $('.enter')[0].addEventListener('click', function(e) {
-    hideCurtain();
-    e.preventDefault();
+      startPause = true;
+      if (startPause) hideCurtain();
   }, 4000);
 
 };

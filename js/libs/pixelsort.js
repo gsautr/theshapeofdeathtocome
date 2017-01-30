@@ -1,7 +1,13 @@
 /* global dat, jQuery */
 
+var stopPixelSort = false;
 // Configuration stuff, settable with dat.Gui
-
+var config = {
+  strength:  0.8,
+  threshold: 0.45,
+  scale:     1,
+  vertical:  true
+};
 
 
 // shim layer with setTimeout fallback
@@ -15,6 +21,7 @@ window.requestAnimFrame = (function(){
                 window.setTimeout(callback, 1000 / 60);
               };
   })();
+
 window.setImmediate = (function () {
     return  window.setImmediate              ||
             function( callback ) {
@@ -22,10 +29,10 @@ window.setImmediate = (function () {
               };
   })();
 
-function pixelSort($, container, config){
+(function ($, container) {
   'use strict';
 
-  var src = '../img/logo.png',
+  var src = 'img/logo.png',
 
     width,           // Canvas width
     rowWidth,        // Length of a row of pixels in the bitmap data
@@ -118,12 +125,12 @@ function pixelSort($, container, config){
     }
 
     // Repeat immediately
-    window.setImmediate(iterate);
+    if (!stopPixelSort) window.setImmediate(iterate);
   }
 
   // Copy the latest bitmap to the canvas every frame
   function draw() {
-      window.requestAnimFrame(draw);
+      if (!stopPixelSort) window.requestAnimFrame(draw);
       ctx.putImageData(bitmap, 0, 0);
   }
 
@@ -142,8 +149,8 @@ function pixelSort($, container, config){
     // How big is the image?
     var imgWidth  = img.width  * config.scale;
     var imgHeight = img.height * config.scale;
-    width  = (img.width  * config.scale) * 2;
-    height = window.innerHeight;
+    width  = (img.width  * config.scale);
+    height = imgHeight * config.scale * 4;
 
     // Fill the container
     $canvas.css('width', width)
@@ -167,7 +174,7 @@ function pixelSort($, container, config){
     ctx.rect(0,0,width, height);
     ctx.fillStyle = "rgba(255,255,255,1)";
     ctx.fill();
-    ctx.drawImage(img, (width/2) - (imgWidth/2), (height * 0.55) - (imgHeight/2), imgWidth, imgHeight);
+    ctx.drawImage(img, (width/2) - (imgWidth/2), 0, imgWidth, imgHeight);
 
     // var fontSize = 80;
     // var fontOffset = 0.3;
@@ -251,11 +258,9 @@ function pixelSort($, container, config){
     $container.append($canvas);
     ctx = $canvas[0].getContext('2d');
 
-    // Allow dropping files
-    initFileDrop($('html'));
 
     // Controls
-    addDatGui();
+    // addDatGui();
 
     // On resize: reload(). Now: reload()
     $(window).resize(reload).resize();
@@ -265,4 +270,4 @@ function pixelSort($, container, config){
   $(init);
 
 
-};
+}(jQuery, '.geocities'));

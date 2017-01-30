@@ -1,9 +1,0 @@
-// @codekit-prepend "../bower_components/jquery/dist/jquery.js";
-// @codekit-prepend "../bower_components/three.js/build/three.js";
-// @codekit-prepend "../bower_components/three.js/examples/js/renderers/Projector.js";
-// @codekit-prepend "../bower_components/dat.gui/build/dat.gui.js";
-// @codekit-prepend "../bower_components/tween.js/src/Tween.js";
-// @codekit-prepend "../bower_components/underscore/underscore.js";
-// @codekit-prepend "libs/geocities.js";
-// @codekit-prepend "libs/poissondisc.js";
-// @codekit-prepend "libs/pixelsort.js";
