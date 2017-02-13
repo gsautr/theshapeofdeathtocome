@@ -5965,24 +5965,25 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 	this.onKeyDown = function ( event ) {
 
 		/// ADD KEYCODES FOR EXTERNAL KEYBOARD UNIT
-
+		console.log(event.keyCode);
 		switch ( event.keyCode ) {
 
-			case 38: /*up*/
-			case 87: /*W*/ 
+			case 38: /*up*/ this.moveForward = true; break;
+			case 12: /*up*/ this.moveForward = true; break;
+			case 87: /*W*/ this.moveForward = true; break;
 			case 104: /*W*/ this.moveForward = true; break;
 
-			case 37: /*left*/
-			case 65: /*A*/
+			case 37: /*left*/ this.moveLeft = true; break;
+			case 65: /*A*/ this.moveLeft = true; break;
 			case 100: /*A*/ this.moveLeft = true; break;
 
-			case 39: /*right*/
-			case 68: /*D*/
+			case 39: /*right*/ this.moveRight = true; break;
+			case 68: /*D*/ this.moveRight = true; break;
 			case 54: /*D*/ this.moveRight = true; break;
 
-			case 40: /*down*/
-			case 98: /*down*/
-			case 101: /*S*/
+			case 40: /*down*/ this.moveBackward = true; break;
+			case 98: /*down*/ this.moveBackward = true; break;
+			case 101: /*S*/ this.moveBackward = true; break;
 			case 83: /*S*/ this.moveBackward = true; break;
 
 			case 82: /*R*/ this.moveUp = true; break;
@@ -5992,28 +5993,28 @@ THREE.FirstPersonControls = function ( object, domElement ) {
 
 	};
 
-	this.onKeyUp = function ( event ) {
+	// this.onKeyUp = function ( event ) {
 
-		switch ( event.keyCode ) {
+	// 	switch ( event.keyCode ) {
 
-			case 38: /*up*/
-			case 87: /*W*/ this.moveForward = false; break;
+	// 		case 38: /*up*/
+	// 		case 87: /*W*/ this.moveForward = false; break;
 
-			case 37: /*left*/
-			case 65: /*A*/ this.moveLeft = false; break;
+	// 		case 37: /*left*/
+	// 		case 65: /*A*/ this.moveLeft = false; break;
 
-			case 40: /*down*/
-			case 83: /*S*/ this.moveBackward = false; break;
+	// 		case 40: /*down*/
+	// 		case 83: /*S*/ this.moveBackward = false; break;
 
-			case 39: /*right*/
-			case 68: /*D*/ this.moveRight = false; break;
+	// 		case 39: /*right*/
+	// 		case 68: /*D*/ this.moveRight = false; break;
 
-			case 82: /*R*/ this.moveUp = false; break;
-			case 70: /*F*/ this.moveDown = false; break;
+	// 		case 82: /*R*/ this.moveUp = false; break;
+	// 		case 70: /*F*/ this.moveDown = false; break;
 
-		}
+	// 	}
 
-	};
+	// };
 
 	this.update = function( delta ) {
 
