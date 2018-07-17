@@ -1,0 +1,21 @@
+{
+    "name": "theshapeofdeathtocome",
+    "version": "1.0.0",
+    "description": "Internet epitaphs & memorials of Yahoo Geocities",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js",
+        "dev": "nodemon server.js"
+    },
+    "license": "ICS",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/autr/theshapeofdeathtocome.git"
+    },
+    "homepage": "https://github.com/autr/theshapeofdeathtocome#readme",
+    "author": "Gilbert Sinnott",
+    "dependencies": {
+        "express": "^4.13.4"
+    }
+}
